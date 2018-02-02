@@ -7,12 +7,14 @@
 
 #define WIDTH 500
 #define HEIGHT 500
-#define MAX_RGB 256.0
+#define MAX_RGB 255.0
 #define MIN_RGB 0.0
 
 int main() {
     int fd = open("pic.ppm", O_WRONLY | O_TRUNC | O_CREAT, 0644);
-    write(fd, "P3\n500 500\n255\n", 20);
+    char init[50];
+    sprintf(init, "P3\n%d %d\n%d\n", WIDTH, HEIGHT, (int)MAX_RGB);
+    write(fd, init, strlen(init));
 
     int i, j;
     double r = MIN_RGB;
