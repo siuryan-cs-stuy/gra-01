@@ -17,9 +17,9 @@ int main() {
     write(fd, init, strlen(init));
 
     int i, j;
-    double r = MIN_RGB;
-    double g = MIN_RGB;
-    double b = MAX_RGB / 2;
+    double r = MIN_RGB + 1;
+    double g = MAX_RGB;
+    double b = MIN_RGB + 1;
 
     char buffer[10000];
     strcpy(buffer, "");
@@ -28,17 +28,18 @@ int main() {
         for (j = 0; j < WIDTH; j++) {
             char rgb[10];
 
-            sprintf(rgb, "%d %d %d  ", (int)r, (int)g, (int)b);
+            sprintf(rgb, "%d %d %d  ", (int)r % 255, (int)g % 255, (int)b % 255);
             strcat(buffer, rgb);
 
-            r += MAX_RGB / WIDTH;
+            r *= 1.02;
+            b *= 1.00007;
         }
 
         strcat(buffer, "\n");
         write(fd, buffer, strlen(buffer));
 
-        r = MIN_RGB;
-        g += MAX_RGB / HEIGHT;
+        r = MIN_RGB + 1;
+        g /= 1.005;
         strcpy(buffer, "");
     }
 
